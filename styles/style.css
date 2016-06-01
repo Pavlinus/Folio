@@ -365,7 +365,7 @@ p {
 
 #userboard {
 	width: 1400px;
-	/*height: 79%;*/
+	height: 70%;
 	background: #f5f5f5;
 	margin: 0 auto;
 }
@@ -424,8 +424,20 @@ p {
 	padding: 10px;
 }
 
+#userDetailsLeft {
+	float: left;
+	width: 350px;
+}
+
 #userDetailsLeft input:first-child {
 	margin-top: 0px !important;
+}
+
+#userDetailsRight {
+	max-width: 420px;
+	float: left;
+	padding-left: 40px;
+	padding-right: 40px;
 }
 
 #avatarUpdateContainer {
@@ -448,30 +460,20 @@ p {
 /* Соц. сети */
 
 #social {
-	width: 1400px;
-	height: 105px;
-	background: #fff;
-	border: 0px solid black;
+	width: 50px;
+	float: right;
 }
 
 #socialInner {
 	height: inherit;
 	margin: 0 auto;
-	width: 140px;
 }
 
 #socialInner img {
-	float: left;
-	width: 50px;
-	padding: 25px 40px 0 0;
+	width: 45px;
 }
 
 #socialInner a:last-child img {
-	padding: 25px 0px 0 0;
-}
-
-#socialInner:after {
-	clear: both;
 }
 
 
@@ -566,6 +568,7 @@ footer {
 
 #footerInner #socialInner img {
 	width: 40px;
+	float: left;
 	padding: 20px 30px 0 0;
 }
 

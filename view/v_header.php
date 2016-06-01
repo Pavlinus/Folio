@@ -13,12 +13,12 @@
 			</div>
 			<nav id="topMenuRight">
 				<ul>
-					<li><a href="#">О ПРОЕКТЕ</a></li>
-					<li><a href="#">КОНТАКТЫ</a></li>
+					<li><a href="index.php?c=about">О ПРОЕКТЕ</a></li>
+					<li><a href="index.php?c=contacts">КОНТАКТЫ</a></li>
 					<? 
 						session_start();
 						if(isset($_SESSION['sid'])) : ?>
-							<li><a href="index.php?c=user&act=get">ПРОФИЛЬ</a></li>
+							<li><a href="index.php?c=user&act=get&id=<?=$_COOKIE['user_id']?>">ПРОФИЛЬ</a></li>
 							<li><a href="index.php?c=user&act=logout">ВЫЙТИ</a></li>
 					<? endif; ?>
 				</ul>

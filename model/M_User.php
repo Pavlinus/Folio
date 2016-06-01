@@ -29,6 +29,11 @@ class M_User
 	}
 	
 	
+	public function GetUid()
+	{
+		return $this->uid;
+	}
+	
 	public function Add()
 	{
 		if(!$this->LoginIsAvailable())
@@ -36,8 +41,11 @@ class M_User
 			return -1;
 		}
 		
-		$user = $this->PrepareUserDataArr();
-		return $this->msql->Insert('users', $user);
+		$user = $this->UsersDataArray();
+		$this->msql->Insert('users', $user);
+		
+		$socials = $this->SocialsDataArray(mysql_insert_id());
+		$this->msql->Insert('social', $socials);
 	}
 	
 	
@@ -75,6 +83,15 @@ class M_User
 	}
 	
 	
+	public function GetSocial($user_id)
+	{
+		$query = "SELECT * FROM social WHERE 
+					user_id = $user_id";
+		
+		return $this->msql->Select($query);
+	}
+	
+	
 	public function Del($user_id)
 	{
 		$where = "user_id = $user_id";
@@ -85,10 +102,12 @@ class M_User
 	
 	public function Update($user_id)
 	{
-		$user = $this->PrepareUserDataArr();
+		$user = $this->UsersDataArray();
+		$socials = $this->SocialsDataArray($user_id);
 		$where = "user_id = $user_id";
 		
 		$this->msql->Update("users", $user, $where);
+		$this->msql->Update("social", $socials, $where);
 	}
 	
 	
@@ -149,7 +168,7 @@ class M_User
 	//
 	// Создает массив данных о пользователе
 	//
-	private function PrepareUserDataArr()
+	private function UsersDataArray()
 	{
 		// Выбрано изображение
 		if($_FILES['avatar']['name'] != "")
@@ -192,6 +211,51 @@ class M_User
 		}
 		
 		return $user_data;
+	}
+	
+	
+	//
+	// Создает массив данных о пользователе
+	//
+	private function SocialsDataArray($user_id)
+	{
+		$socials = array();
+		$socials['user_id'] = $user_id;
+		$socials['vk'] = $this->GetSocialLink('vk', '.com');
+		$socials['facebook'] = $this->GetSocialLink('facebook', '.com');
+		
+		return $socials;
+	}
+	
+	
+	//
+	// Приводит ссылку на соц. сеть к единому виду `vk.com/profile_id`
+	//
+	private function GetSocialLink($social_name, $domain)
+	{
+		$social = $social_name . $domain . "/";
+		
+		if(isset($_REQUEST[$social_name]))
+		{
+			if($_REQUEST[$social_name] == '')
+			{
+				return '';
+			}
+				
+			$pos = strpos(strtolower($_REQUEST[$social_name]), $social);
+			
+			// Если передан только ID профиля
+			if($pos === false)
+			{
+				return 'http://' . $social . $_REQUEST[$social_name];
+			}
+
+			return 'http://' . substr($_REQUEST[$social_name], $pos);
+		}
+		else
+		{
+			return '';
+		}
 	}
 }
 ?>

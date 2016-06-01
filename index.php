@@ -27,17 +27,7 @@
 			$controller = new C_Settings();
 			break;
 		default:
-			session_start();
-			
-			if(isset($_SESSION['sid']))
-			{
-				$action = 'action_get';
-				$controller = new C_User();
-			}
-			else
-			{
-				$controller = new C_Index();
-			}
+			$controller = new C_Index();
 	}
 	
 	header('Content-type: text/html; charset=utf-8');

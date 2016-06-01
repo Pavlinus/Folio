@@ -19,7 +19,7 @@ class C_Index extends C_Base
 				}
 				else
 				{
-					header("Location: index.php?c=user&act=get");
+					header("Location: index.php?c=user&act=get&id=" . $mUser->GetUid());
 				}
 			}
 		}

@@ -9,6 +9,8 @@
 			<input type="text" name="email" value="<?=$user['email']?>" placeholder="Email"/>
 			<input type="text" name="phone" value="<?=$user['phone']?>" placeholder="Номер телефона"/>
 			<textarea placeholder="О себе" name="about"><?=$user['about']?></textarea>
+			<input type="text" name="vk" value="<?=$social['vk']?>" placeholder="Профиль в VKontakte"/>
+			<input type="text" name="facebook" value="<?=$social['facebook']?>" placeholder="Профиль в Facebook"/>
 			<div id="avatarUpdateContainer">
 				<img src="images/example.png"/>
 				<input type="file" name="avatar"/>

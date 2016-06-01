@@ -7,21 +7,26 @@
 		
 		<a href="#" class="whiteBorderButton">Смотреть проекты</a>
 		
-		<form method="post">
-			<div id="signPanel">
-				<div id="signPanelTop">
-					<a href="index.php?c=user&act=add">Регистрация</a>
-				</div>
-				<div id="signPanelMiddle">
-					<div id="signPanelField">
-						<input class="signPanelInputText" type="text" name="login" placeholder="Логин"/>
+		<? 
+			session_start();
+			if(!isset($_SESSION['sid'])) : 
+		?>
+			<form method="post">
+				<div id="signPanel">
+					<div id="signPanelTop">
+						<a href="index.php?c=user&act=add">Регистрация</a>
 					</div>
-					<div id="signPanelField">
-						<input class="signPanelInputText" type="password" name="password" placeholder="Пароль"/>
+					<div id="signPanelMiddle">
+						<div id="signPanelField">
+							<input class="signPanelInputText" type="text" name="login" placeholder="Логин"/>
+						</div>
+						<div id="signPanelField">
+							<input class="signPanelInputText" type="password" name="password" placeholder="Пароль"/>
+						</div>
 					</div>
+					<input type="submit" value="Войти" class="submitButton signPanelSubmit"/>
 				</div>
-				<input type="submit" value="Войти" class="submitButton signPanelSubmit"/>
-			</div>
-		</form>
+			</form>
+		<? endif; ?>
 	</div>
 </div>

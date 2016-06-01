@@ -2,7 +2,7 @@
 	<div id="userboardInner">
 		<? 
 			session_start();
-			if(isset($_SESSION['sid'])) : 
+			if(isset($_SESSION['sid']) && $_GET['id'] == $_COOKIE['user_id']) : 
 		?>
 			<div id="controlPanel">
 				<div id="optionButton">
@@ -32,18 +32,22 @@
 				<div id="userDetailsRight">
 					<p><?=$user['about']?></p>
 				</div>
+				<div id="social">
+					<div id="socialInner">
+						<? if($social['vk'] != '#') : ?>
+							<a href="<?=$social['vk']?>">
+								<img src="images/vk_enabled_120.png"/>
+							</a>
+						<? endif; ?>
+						<? if($social['facebook'] != '#') : ?>
+							<a href="<?=$social['facebook']?>">
+								<img src="images/facebook_120.png"/>
+							</a>
+						<? endif; ?>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div id="social">
-			<div id="socialInner">
-				<a href="#">
-					<img src="images/vk_120.png"/>
-				</a>
-				<a href="#">
-					<img src="images/facebook_120.png"/>
-				</a>
-			</div>
 	</div>
 </div>
 

@@ -3,46 +3,50 @@
 class C_User extends C_Base 
 {
 	//
-	// Переход на главную страницу сайта
-	// в зависимости от статуса авторизации
+	// Страница профиля
 	//
 	public function action_get()
 	{
 		session_start();
 		
-		// Пользователь не авторизован
-		if(!isset($_SESSION['sid']))
-		{
-			header("Location: index.php");
-			return;
-		}
-		
 		$assoc = array();
 		
-		// Проекты пользователя
-		$mProject = M_Project::Instance();
-		$projects = $mProject->All($_COOKIE['user_id']);
-		
-		if($projects != null)
+		if(isset($_GET['id']))
 		{
-			$assoc['projects'] = $projects;
+			$user_id = mysql_real_escape_string(trim($_GET['id']));
 		}
 		else
+		{
+			header("Location: index.php");
+		}
+		
+		// Проекты
+		$mProject = M_Project::Instance();
+		$projects = $mProject->All($user_id);
+		$assoc['projects'] = $projects;
+		
+		// Персональные данные
+		$mUser = M_User::Instance();
+		$user = $mUser->GetById($user_id);
+		$assoc['user'] = $user[0];
+		
+		// Соц. сети
+		$social = $mUser->GetSocial($user_id);
+		$assoc['social'] = $social[0];
+		
+		if($assoc['projects'] == null)
 		{
 			$assoc['projects'] = array();
 		}
-		
-		// Персональные данные пользователя
-		$mUser = M_User::Instance();
-		$user = $mUser->GetById($_COOKIE['user_id']);
-		
-		if($user[0] != null)
+		elseif($assoc['user'] == null)
 		{
-			$assoc['user'] = $user[0];
+			die("Не удалось получить данные о пользователе");
 		}
-		else
+		elseif($assoc['social'] == null)
 		{
-			//die("Не удалось получить данные о пользователе");
+			$assoc['social'] = array(
+									'vk' => '#', 
+									'facebook' => '#');
 		}
 		
 		$this->content = $this->Template('view/v_user.php', $assoc);
@@ -59,28 +63,20 @@ class C_User extends C_Base
 			$mUser = M_User::Instance();
 			$result = $mUser->Add();
 			
-			if($result)
+			if($result == -1)
+			{
+				$error = true;
+				$err_msg = "Введенный логин занят";
+			}
+			else
 			{
 				if($mUser->Login($_REQUEST['login'], $_REQUEST['password']))
 				{
-					header("Location: index.php?c=user&act=get");
+					header("Location: index.php?c=user&act=get&id=" . $mUser->GetUid());
 				}
 				else
 				{
 					die("Ошибка входа");
-				}
-			}
-			else
-			{
-				$error = true;
-				
-				if($result == -1)
-				{
-					$err_msg = "Введенный логин занят";
-				}
-				else
-				{
-					$err_msg = "Ошибка соединения";
 				}
 			}
 		}
@@ -101,45 +97,33 @@ class C_User extends C_Base
 		
 		if($this->isPost())
 		{
-			$mUser->Update($_COOKIE['user_id']);
-			header("Location: index.php?c=user&act=get");
-		}
-		
-		$user = $mUser->GetById($_COOKIE['user_id']);
-		$this->content = $this->Template('view/v_user_edit.php', array('user' => $user[0]));
-	}
-	
-	
-	//
-	// Авторизация пользователя
-	//
-	public function action_login()
-	{
-		$arr = array();
-		
-		if($this->isPost())
-		{
-			$mUser = M_User::Instance();
+			$rows = $mUser->Update($_COOKIE['user_id']);
 			
-			if(!$mUser->Login($_POST['login'], $_POST['password']))
+			if($rows == -1)
 			{
-				$this->content = $this->Template('view/v_auth.php', 
-											array(
-												'login' => $_POST['login'],
-												'error' => true));
-				
-				return false;
+				// TODO: не удалось обновить профиль
 			}
 			else
 			{
-				header("Location: index.php?c=user");
-				//$this->action_index();
-				
-				return true;
+				header("Location: index.php?c=user&act=get&id=" . $_COOKIE['user_id']);
 			}
 		}
 		
-		$this->content = $this->Template('view/v_auth.php', array());
+		$user = $mUser->GetById($_COOKIE['user_id']);
+		$social = $mUser->GetSocial($_COOKIE['user_id']);
+		
+		foreach($social[0] as $key => $val)
+		{
+			if($social[0][$key] == '#')
+			{
+				$social[0][$key] = '';
+			}
+		}
+		
+		$this->content = $this->Template('view/v_user_edit.php', 
+											array(
+												'user' => $user[0],
+												'social' => $social[0]));
 	}
 	
 	
