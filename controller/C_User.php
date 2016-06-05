@@ -38,15 +38,26 @@ class C_User extends C_Base
 		{
 			$assoc['projects'] = array();
 		}
-		elseif($assoc['user'] == null)
+		else
+		{
+			// Выводим ссылки на проекты без `http://`
+			foreach($assoc['projects'] as &$project)
+			{
+				$pattern = '/^http(s)?:\/\//';
+				$project['link_cut'] = preg_replace($pattern, '', $project['link']);
+			}
+		}
+		
+		if($assoc['user'] == null)
 		{
 			die("Не удалось получить данные о пользователе");
 		}
-		elseif($assoc['social'] == null)
+		
+		if($assoc['social'] == null)
 		{
 			$assoc['social'] = array(
-									'vk' => '#', 
-									'facebook' => '#');
+									'vk' => '', 
+									'facebook' => '');
 		}
 		
 		$this->content = $this->Template('view/v_user.php', $assoc);
@@ -111,14 +122,6 @@ class C_User extends C_Base
 		
 		$user = $mUser->GetById($_COOKIE['user_id']);
 		$social = $mUser->GetSocial($_COOKIE['user_id']);
-		
-		foreach($social[0] as $key => $val)
-		{
-			if($social[0][$key] == '#')
-			{
-				$social[0][$key] = '';
-			}
-		}
 		
 		$this->content = $this->Template('view/v_user_edit.php', 
 											array(

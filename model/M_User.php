@@ -7,6 +7,14 @@ class M_User
 	private $msql;
 	private $uid;
 	private $sid;
+	private $keysArray = array('f_name', 
+							   'l_name', 
+							   'email', 
+							   'phone', 
+							   'education', 
+							   'skills', 
+							   'about', 
+							   'location');
 	
 	const USER_ROLE = 1;
 	const MODER_ROLE = 2;
@@ -34,6 +42,10 @@ class M_User
 		return $this->uid;
 	}
 	
+	
+	//
+	// Добавление нового пользователя
+	//
 	public function Add()
 	{
 		if(!$this->LoginIsAvailable())
@@ -41,8 +53,30 @@ class M_User
 			return -1;
 		}
 		
-		$user = $this->UsersDataArray();
-		$this->msql->Insert('users', $user);
+		if($_FILES['avatar']['name'] != "")
+		{			
+			$image_handler = ImageHandler::Instance();
+			$images = $image_handler->UploadUserImage($_FILES['image'], 
+													  trim($_REQUEST['login']));
+		}
+		else
+		{
+			$images = array("../images/user_default.png", "../images/user_default.png");
+		}
+		
+		$user_data = array( 
+				'avatar' => mysql_real_escape_string($images[0]),
+				'avatar_thumb' => mysql_real_escape_string($images[1]),
+				'role_id' => self::USER_ROLE);
+				
+		foreach($this->keysArray as $val)
+		{
+			$user_data[$val] = mysql_real_escape_string(trim($_REQUEST[$val]));
+		}
+		
+		$user_data['login'] = mysql_real_escape_string(trim($_REQUEST['login']));
+		$user_data['password'] = mysql_real_escape_string(md5(trim($_REQUEST['password'])));
+		$this->msql->Insert('users', $user_data);
 		
 		$socials = $this->SocialsDataArray(mysql_insert_id());
 		$this->msql->Insert('social', $socials);
@@ -54,7 +88,8 @@ class M_User
 	//
 	private function LoginIsAvailable()
 	{
-		$rows = $this->GetByLogin(trim($_REQUEST['login']));
+		$login = mysql_real_escape_string(trim($_REQUEST['login']));
+		$rows = $this->GetByLogin($login);
 		
 		if(count($rows) > 0)
 		{
@@ -102,7 +137,7 @@ class M_User
 	
 	public function Update($user_id)
 	{
-		$user = $this->UsersDataArray();
+		$user = $this->UserDataArray();
 		$socials = $this->SocialsDataArray($user_id);
 		$where = "user_id = $user_id";
 		
@@ -130,7 +165,7 @@ class M_User
 		$this->uid = $user[0]['user_id'];
 		$this->sid = $this->GenerateStr();
 		$_SESSION['sid'] = $this->sid;
-		setcookie('user_id', $this->uid, time() + 3600);
+		setcookie('user_id', $this->uid, time() + 3600 * 12);
 		
 		return true;
 	}
@@ -139,7 +174,7 @@ class M_User
 	public function Logout()
 	{
 		unset($_SESSION['sid']);
-		setcookie('user_id', '', time() - 3600);
+		setcookie('user_id', '', time() - 3600 * 12);
 		$this->uid = null;
 		$this->sid = null;
 		
@@ -166,42 +201,52 @@ class M_User
 	
 	
 	//
-	// Создает массив данных о пользователе
+	// Создает массив данных пользователя
+	// $user_login - false, когда Update; хранит логин при Add
 	//
-	private function UsersDataArray()
+	private function UserDataArray($user_login = false)
 	{
+		// Если происходит Update данных
+		if(!$user_login)
+		{
+			if(isset($_COOKIE['user_id']))
+			{
+				$user = $this->GetById($_COOKIE['user_id']);
+				$user_login = $user[0]['login'];
+			}
+		}
+		
 		// Выбрано изображение
 		if($_FILES['avatar']['name'] != "")
-		{			
+		{	
+			
 			$image_handler = ImageHandler::Instance();
-			$images = $image_handler->UploadImage($_FILES['avatar']);
+			$images = $image_handler->UploadUserImage($_FILES['avatar'], $user_login);
 		}
 		else
 		{
-			// Пользователь существует в базе
-			if(isset($this->uid))
+			session_start();
+			
+			// Если пользователь существует в базе - аватар не меняем
+			if(isset($_SESSION['sid']))
 			{
-				$user = $this->GetById($this->uid);
-				$images = array($user['avatar'], $user['avatar_thumb']);
+				$images = array($user[0]['avatar'], $user[0]['avatar_thumb']);
 			}
 			else
 			{
 				$images = array("../images/example.png", "../images/example.png");
 			}
 		}
-			
+		
 		$user_data = array( 
-				'f_name' => mysql_real_escape_string(trim($_REQUEST['f_name'])),
-				'l_name' => mysql_real_escape_string(trim($_REQUEST['l_name'])),
-				'email' => mysql_real_escape_string(trim($_REQUEST['email'])),
-				'phone' => mysql_real_escape_string(trim($_REQUEST['phone'])),
-				'education' => mysql_real_escape_string(trim($_REQUEST['education'])),
-				'skills' => mysql_real_escape_string(trim($_REQUEST['skills'])),
-				'about' => mysql_real_escape_string(trim($_REQUEST['about'])),
 				'avatar' => mysql_real_escape_string($images[0]),
 				'avatar_thumb' => mysql_real_escape_string($images[1]),
-				'location' => mysql_real_escape_string(trim($_REQUEST['location'])),
 				'role_id' => self::USER_ROLE);
+				
+		foreach($this->keysArray as $val)
+		{
+			$user_data[$val] = mysql_real_escape_string(trim($_REQUEST[$val]));
+		}
 		
 		// Если новый пользователь
 		if(isset($_REQUEST['login']) && isset($_REQUEST['password']))

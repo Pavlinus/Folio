@@ -12,10 +12,12 @@
 			<input type="text" name="vk" value="<?=$social['vk']?>" placeholder="Профиль в VKontakte"/>
 			<input type="text" name="facebook" value="<?=$social['facebook']?>" placeholder="Профиль в Facebook"/>
 			<div id="avatarUpdateContainer">
-				<img src="images/example.png"/>
+				<img src="<?=$user['avatar_thumb']?>"/>
 				<input type="file" name="avatar"/>
 			</div>
 			<input type="submit" class="submitButton" value="Сохранить"/>
 		</div>
 	</div>
 </form>
+
+<script src="../scripts/input.js" async></script>

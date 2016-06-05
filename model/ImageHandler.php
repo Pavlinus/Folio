@@ -2,8 +2,7 @@
 class ImageHandler
 {
 	const MAX_FILE_SIZE = 3072000;
-	private $width = 300;
-	private $height  = 300;
+	private $width = 150;
 	
 	private static $instance;
 	
@@ -19,7 +18,7 @@ class ImageHandler
 	}
 	
 	
-	public function UploadImage($file)
+	public function UploadImage($file, $userDir)
 	{
 		if($file['size'] > self::MAX_FILE_SIZE)
 		{
@@ -33,42 +32,82 @@ class ImageHandler
 			die("Неверный формат изображения");
 		}
 		
-		$original = "images/" . $file['name'];
-		$thumb = "images/thumb_" . $file['name'];
+		// Путь для хранения изображения и его миниатюры
+		$path = "images/" . $userDir . "/";
+		$orig = $path . $file['name']; 
+		$thumb = $path . "thumb_" . $file['name'];
 		
-		if(!copy($file['tmp_name'], $original))
+		if(!file_exists($path))
 		{
-			die("Не удалось сохранить изображение");
+			mkdir($path);
 		}
 		
-		if(!$this->CreateThumbnail($original, $file_ext, $thumb))
+		if(!copy($file['tmp_name'], $orig))
 		{
-			die("Не удалось создать миниатюру");
+			return false;
 		}
 		
-		return array($original, $thumb);
+		return array(
+			'orig' => $orig, 
+			'thumb' => $thumb,
+			'ext' => $file_ext);
 	}
 	
 	
-	public function CreateThumbnail($orig, $file_ext, $filename)
+	//
+	// Сохраняет аватар пользователя и создает миниатюру
+	//
+	public function UploadUserImage($file, $userDir)
+	{
+		$upload = $this->UploadImage($file, $userDir);
+		
+		if(!isset($upload))
+		{
+			return false;
+		}
+		
+		if(!$this->CreateThumbnail($upload['orig'], 
+								   $upload['ext'], 
+								   $upload['thumb']))
+		{
+			return false;
+		}
+		
+		return array($upload['orig'], $upload['thumb']);
+	}
+	
+	
+	//
+	// Создание миниатюры
+	// $orig - путь к оригиналу
+	// $file_ext - расширение изображения
+	// $thumbnail - путь сохранения миниатюры
+	//
+	public function CreateThumbnail($orig, $file_ext, $thumbnail)
 	{
 		$info = getimagesize($orig);
 		$orig_dimens = array($info[0], $info[1]);
 		
+		$koeff = $orig_dimens[0] / $this->width;
+		$new_height = ceil($orig_dimens[1] / $koeff);
+		
 		$method = "imagecreatefrom" . $file_ext;
 		$image_orig = $method($orig);
 		
-		$thumb = imagecreatetruecolor($this->width, $this->height);
+		$thumb = imagecreatetruecolor($this->width, $new_height);
 		
 		imagecopyresampled($thumb, $image_orig, 0, 0, 0, 0, 
-			$this->width, $this->height, $orig_dimens[0], $orig_dimens[1]);
+			$this->width, $new_height, $orig_dimens[0], $orig_dimens[1]);
 		
 		$method = "image" . $file_ext;
 		
-		return $method($thumb, $filename);
+		return $method($thumb, $thumbnail);
 	}
 	
 	
+	//
+	// Определение расширения файла
+	//
 	private function FileExt($file)
 	{
 		switch($file['type'])

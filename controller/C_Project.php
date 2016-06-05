@@ -53,7 +53,7 @@ class C_Project extends C_Base
 			}
 		}
 		
-		header("Location: index.php?c=user");
+		header("Location: index.php?c=user&act=get&id=" . $_COOKIE['user_id']);
 	}
 	
 	
@@ -72,7 +72,7 @@ class C_Project extends C_Base
 					die("Не удалось обновить проект с ID: " . $_REQUEST['id']);
 				}
 				
-				header("Location: index.php?c=user&act=get");
+				header("Location: index.php?c=user&act=get&id=" . $_COOKIE['user_id']);
 				return;
 			}
 			
