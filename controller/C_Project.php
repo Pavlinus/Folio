@@ -73,7 +73,7 @@ class C_Project extends C_Base
 				}
 				
 				header("Location: index.php?c=user&act=get&id=" . $_COOKIE['user_id']);
-				return;
+				die();
 			}
 			
 			$project = $mProject->Get($_REQUEST['id']);

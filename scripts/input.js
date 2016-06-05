@@ -11,11 +11,11 @@ function inputChange(evt)
 			
 			if(!validateEmail(email))
 			{
-				evt.target.style.backgroundColor = "#ff8b38";
+				evt.target.style.borderColor = "#ff8b38";
 			}
 			else
 			{
-				evt.target.style.backgroundColor = "white";
+				evt.target.style.borderColor = "transparent";
 			}
 			break;
 	}

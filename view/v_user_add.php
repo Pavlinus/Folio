@@ -10,4 +10,4 @@
 		</form>
 	</div>
 </div>
-<script src="../scripts/user_add.js" async></script>
+<script src="../scripts/input.js" async></script>

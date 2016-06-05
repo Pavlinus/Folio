@@ -125,8 +125,6 @@ class M_Project
 			$object['link'] = 'http://' . $object['link'];
 		}
 		
-		echo $object['link'];
-		
 		$url_pattern = '/^(http|https)://[a-zA-Z0-9]([a-zA-Z0-9-]*\.)+[a-zA-Z]{2,4}';
 						
 		return $object;
