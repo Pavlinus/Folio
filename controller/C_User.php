@@ -50,7 +50,9 @@ class C_User extends C_Base
 		
 		if($assoc['user'] == null)
 		{
-			die("Не удалось получить данные о пользователе");
+			$error = "Не удалось получить данные о пользователе";
+			$this->content = $this->Template('view/v_error.php', array('error' => $error));
+			return;
 		}
 		
 		if($assoc['social'] == null)

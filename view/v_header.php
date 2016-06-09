@@ -9,7 +9,7 @@
 	<header id="header">
 		<div id="headerInner">
 			<div id="logo">
-				<h2>FOLIO</h2>
+				<a href="index.php"><h2>FOLIO</h2></a>
 			</div>
 			<nav id="topMenuRight">
 				<ul>

@@ -6,7 +6,8 @@
 			<input type="text" name="location" value="<?=$user['location']?>" placeholder="Страна"/>
 			<input type="text" name="skills" value="<?=$user['skills']?>" placeholder="Навыки"/>
 			<input type="text" name="education" value="<?=$user['education']?>" placeholder="Образование"/>
-			<input type="text" name="email" value="<?=$user['email']?>" placeholder="Email"/>
+			<input type="text" name="email" value="<?=$user['email']?>" placeholder="Email" 
+				oninput="validateEmail(this)"/>
 			<input type="text" name="phone" value="<?=$user['phone']?>" placeholder="Номер телефона"/>
 			<textarea placeholder="О себе" name="about"><?=$user['about']?></textarea>
 			<input type="text" name="vk" value="<?=$social['vk']?>" placeholder="Профиль в VKontakte"/>
