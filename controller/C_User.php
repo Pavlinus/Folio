@@ -13,6 +13,13 @@ class C_User extends C_Base
 		
 		if(isset($_GET['id']))
 		{
+			if(!is_numeric($_GET['id']))
+			{
+				$error = "Не удалось получить данные пользователя";
+				$this->content = $this->Template('view/v_error.php', array('error' => $error));
+				return;
+			}
+			
 			$user_id = mysql_real_escape_string(trim($_GET['id']));
 		}
 		else
@@ -50,7 +57,7 @@ class C_User extends C_Base
 		
 		if($assoc['user'] == null)
 		{
-			$error = "Не удалось получить данные о пользователе";
+			$error = "Не удалось получить данные пользователя";
 			$this->content = $this->Template('view/v_error.php', array('error' => $error));
 			return;
 		}
@@ -89,7 +96,9 @@ class C_User extends C_Base
 				}
 				else
 				{
-					die("Ошибка входа");
+					$error = "Не удалось войти в профиль. Повторите попытку позже.";
+					$this->content = $this->Template('view/v_error.php', array('error' => $error));
+					return;
 				}
 			}
 		}
@@ -114,11 +123,14 @@ class C_User extends C_Base
 			
 			if($rows == -1)
 			{
-				// TODO: не удалось обновить профиль
+				$error = "Не удалось обновить данные. Повторите попытку позже.";
+				$this->content = $this->Template('view/v_error.php', array('error' => $error));
+				return;
 			}
 			else
 			{
 				header("Location: index.php?c=user&act=get&id=" . $_COOKIE['user_id']);
+				return;
 			}
 		}
 		

@@ -5,7 +5,7 @@
 		<div class="separatorLine borderBottomWhite"></div>
 		<p>Project description bla bla</p>
 		
-		<a href="#" class="whiteBorderButton">Смотреть проекты</a>
+		<a href="index.php?c=search&act=search" class="whiteBorderButton">Смотреть проекты</a>
 		
 		<? 
 			session_start();

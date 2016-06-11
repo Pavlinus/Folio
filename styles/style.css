@@ -91,6 +91,29 @@ p {
 /* ------------------------------ */
 
 
+/* Кнопки */
+
+.button {
+	display: block;
+	padding: 10px 15px 10px 15px;
+	background: #ff8b38;
+	float: left;
+	transition-duration: 0.1s;
+	color: #fff;
+	margin-right: 15px;
+	border: 0px solid transparent;
+}
+
+.button:hover {
+	background: #fc8126;
+	color: #f6f6f6;
+	transition-duration: 0.1s;
+}
+
+
+/* ------------------------------ */
+
+
 /* Основы полей ввода */
 
 .basicInputField input, textarea {
@@ -161,7 +184,7 @@ p {
 
 #optionButton {
 	width: auto;
-	margin: 10px 0 30px 0;
+	margin: 10px 0 30px 60px;
 }
 
 #optionButton a {
@@ -578,17 +601,20 @@ p {
 /* Область проекта */
 
 #projectArea {
-	background: #fff;
+	background: #f0ede8;
 }
 
 #projectAreaInner {
 	width: 1100px;
 	margin: 0 auto;
-	padding: 20px 0 10px 0;
+	padding: 20px 0 35px 0px;
+	background: #fff;
 }
 
 #projectContent {
 	padding: 50px 0 0px 0;
+	width: 980px;
+	margin: 0 auto;
 }
 
 #projectContent:after {
@@ -626,8 +652,9 @@ p {
 }
 
 #projectAreaInnerLeft {
-	width: 500px;
+	width: 400px;
 	float: left;
+	padding: 10px 0 10px 0;
 }
 
 #projectAreaInnerRight {
@@ -666,17 +693,12 @@ footer {
 }
 
 #footerInner #socialInner {
-	width: 110px;
+	width: 60px;
 }
 
-#footerInner #socialInner img {
-	width: 40px;
+#footerInner #socialInner #socialItem{
 	float: left;
-	padding: 20px 30px 0 0;
-}
-
-#footerInner #socialInner a:last-child img {
-	padding: 20px 0 0 0;
+	padding: 25px 15px 0 0;
 }
 
 
@@ -737,6 +759,7 @@ footer {
 
 #errorPageInner .error_msg {
 	padding: 25px 0 25px 0;
+	color: #2b5865;
 	font-size: 18px;
 }
 
@@ -762,4 +785,88 @@ footer {
 
 #errorPage:after {
 	clear: both;
+}
+
+.input_error_msg {
+	color: #ff8b38 !important;
+	display: block;
+	margin: 0 auto;
+	width: 350px;
+	font-size: 18px;
+}
+
+
+/* ------------------------------ */
+
+
+/* Страница поиска */
+
+#searchBoard {
+	width: 1400px;
+	background: #f0ede8;
+	margin: 0 auto;
+}
+
+#searchBoardInner {
+	width: 1100px;
+	margin: 0 auto;
+	padding: 55px 25px 0px 25px;
+}
+
+#searchFilter {
+	padding: 0 0 35px 45px;
+}
+
+#searchFilter h3, select, input {
+	float: left;
+	margin-right: 15px;
+}
+
+#searchFilter select {
+	font-size: 15px;
+	height: 35px;
+	width: 300px;
+}
+
+#searchFilter h3 {
+	line-height: 1.8;
+	color: #2b5865;
+}
+
+#searchFilter:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+#searchFilter input {
+	padding: 10px 15px 10px 15px;
+}
+
+#searchResults {
+	background: #fff;
+}
+
+#searchResults #projectContent {
+	padding-top: 25px;
+}
+
+#searchResults #projectAreaInnerLeft {
+	padding: 10px 10px 0 20px;
+}
+
+#searchResults #projectAreaInnerRight img {
+	margin-left: 20px;
+}
+
+#projectAuthor {
+	padding-top: 10px;
+}
+
+#searchResults h2 {
+	margin-bottom: 5px;
+}
+
+#searchResults #projectLink {
+	padding: 10px 0 20px 0;
 }

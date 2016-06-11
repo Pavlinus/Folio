@@ -9,8 +9,8 @@ class C_Project extends C_Base
 			$mProject = M_Project::Instance();
 			$mProject->Add();
 			
-			header("Location: index.php?c=user&act=get");
-			die();
+			header("Location: index.php?c=user&act=get&id=" . $_COOKIE['user_id']);
+			return;
 		}
 		
 		$this->content = $this->Template("view/v_project_add.php", array());
@@ -25,19 +25,27 @@ class C_Project extends C_Base
 		{
 			if(isset($_GET['id']))
 			{
+				if(!is_numeric($_GET['id']))
+				{
+					$error = "Не удалось получить данные проекта";
+					$this->content = $this->Template('view/v_error.php', array('error' => $error));
+					return;
+				}
+			
 				$mProject = M_Project::Instance();
 				$project = $mProject->Get($_GET['id']);
 			}
 		}
 		
-		if($project != null)
+		if($project != null && mysql_num_rows($project) > 0)
 		{
 			$this->content = $this->Template("view/v_project.php", 
 				array('project' => $project[0]));
 		}
 		else
 		{
-			// TODO: если передан плохой id
+			$error = "Не удалось получить данные о проекте";
+			$this->content = $this->Template('view/v_error.php', array('error' => $error));
 		}
 	}
 	
@@ -48,6 +56,11 @@ class C_Project extends C_Base
 		{
 			if(isset($_GET['id']))
 			{
+				if(!$this->IsValidId())
+				{
+					return;
+				}
+				
 				$mProject = M_Project::Instance();
 				$project = $mProject->Del($_GET['id']);
 			}
@@ -63,28 +76,55 @@ class C_Project extends C_Base
 		
 		if(isset($_REQUEST['id']))
 		{
+			if(!$this->IsValidId())
+			{
+				return;
+			}
+			
 			if($this->isPost())
 			{
 				$project = $mProject->Update($_REQUEST['id']);
 				
 				if($project == -1)
 				{
-					die("Не удалось обновить проект с ID: " . $_REQUEST['id']);
+					$error = "Не удалось обновить данные проекта.";
+					$this->content = $this->Template('view/v_error.php', array('error' => $error));
 				}
 				
 				header("Location: index.php?c=user&act=get&id=" . $_COOKIE['user_id']);
-				die();
+				return;
 			}
 			
 			$project = $mProject->Get($_REQUEST['id']);
+			
+			if($project == null || count($project) == 0)
+			{
+				$error = "Не удалось получить данные о проекте.";
+				$this->content = $this->Template('view/v_error.php', array('error' => $error));
+				return;
+			}
 		}
 		else
 		{
-			die("Проект не существует");
+			$error = "Не удалось получить данные о проекте.";
+			$this->content = $this->Template('view/v_error.php', array('error' => $error));
+			return;
 		}
 		
 		$this->content = $this->Template("view/v_project_edit.php", 
 			array('project' => $project[0]));
+	}
+	
+	private function IsValidId()
+	{
+		if(!is_numeric($_GET['id']))
+		{
+			$error = "Не удалось получить данные проекта";
+			$this->content = $this->Template('view/v_error.php', array('error' => $error));
+			return false;
+		}
+		
+		return true;
 	}
 }
 

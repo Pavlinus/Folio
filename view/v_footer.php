@@ -1,12 +1,11 @@
 	<footer>
 		<div id="footerInner">
 			<div id="socialInner">
-				<a href="#">
-					<img src="images/vk_120.png"/>
-				</a>
-				<a href="#">
-					<img src="images/facebook_120.png"/>
-				</a>
+				<div id="socialItem">
+					<a href="http://vk.com/pavlinkov">
+						<img src="images/vk_stroke.png"/>
+					</a>
+				</div>
 			</div>
 		</div>
 		</div>

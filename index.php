@@ -26,6 +26,9 @@
 		case 'settings':
 			$controller = new C_Settings();
 			break;
+		case 'search':
+			$controller = new C_Search();
+			break;
 		default:
 			$controller = new C_Index();
 	}
