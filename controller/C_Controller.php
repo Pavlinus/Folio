@@ -12,6 +12,12 @@ abstract class C_Controller
 		$this->render();
 	}
 	
+	public function RequestAjax($action)
+	{
+		$this->$action();
+		$this->renderContent();
+	}
+	
 	protected function IsGet()
 	{
 		return $_SERVER['REQUEST_METHOD'] == 'GET';

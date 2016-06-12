@@ -6,7 +6,8 @@ class M_Project
 	private $msql;
 	private $keysArray = array('name', 
 							   'description', 
-							   'link');
+							   'link',
+							   'type');
 	
 	function __construct()
 	{
@@ -128,6 +129,12 @@ class M_Project
 		$url_pattern = '/^(http|https)://[a-zA-Z0-9]([a-zA-Z0-9-]*\.)+[a-zA-Z]{2,4}';
 						
 		return $object;
+	}
+	
+	public function GetSpecialities()
+	{
+		$query = "SELECT * FROM speciality";
+		return $this->msql->Select($query);
 	}
 }
 ?>

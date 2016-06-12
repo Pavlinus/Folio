@@ -13,6 +13,11 @@ abstract class C_Base extends C_Controller
 		$page .= $this->content;
 		$page .= $this->Template('view/v_footer.php', array());
 		echo $page;
-	}	
+	}
+
+	public function renderContent()
+	{
+		echo $this->content;
+	}
 }
 ?>

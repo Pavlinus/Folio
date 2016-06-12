@@ -2,10 +2,35 @@
 
 class C_Search extends C_Base 
 {
-	public function action_search()
+	public function action_get()
 	{
 		$mSearch = M_Search::Instance();
-		$projects = $mSearch->GetNew();
+		$projects = $mSearch->GetNewProjects();
+		$this->PrepareProjectList(&$projects);
+		
+		$mProject = M_Project::Instance();
+		$spec = $mProject->GetSpecialities();
+		
+		$this->content = $this->Template('view/v_search.php', 
+			array('projects' => $projects,
+				  'specialities' => $spec));
+	}
+	
+	public function action_search()
+	{
+		if(isset($_GET['type']))
+		{
+			$mSearch = M_Search::Instance();
+			$projects = $mSearch->GetProjectsByType($_GET['type']);
+			
+			$this->PrepareProjectList(&$projects);
+			
+			$this->content = $this->Template('view/v_search_projects.php', array('projects' => $projects));
+		}
+	}
+	
+	private function PrepareProjectList($projects)
+	{
 		$mUser = M_User::Instance();
 		
 		foreach($projects as $key => $project)
@@ -19,8 +44,6 @@ class C_Search extends C_Base
 			
 			$projects[$key] = $project;
 		}
-		
-		$this->content = $this->Template('view/v_search.php', array('projects' => $projects));
 	}
 }
 

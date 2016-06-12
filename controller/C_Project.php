@@ -13,7 +13,10 @@ class C_Project extends C_Base
 			return;
 		}
 		
-		$this->content = $this->Template("view/v_project_add.php", array());
+		$mProject = M_Project::Instance();
+		$spec = $mProject->GetSpecialities();
+		
+		$this->content = $this->Template("view/v_project_add.php", array('specialities' => $spec));
 	}
 	
 	
@@ -111,8 +114,11 @@ class C_Project extends C_Base
 			return;
 		}
 		
+		$spec = $mProject->GetSpecialities();
+		
 		$this->content = $this->Template("view/v_project_edit.php", 
-			array('project' => $project[0]));
+			array('project' => $project[0],
+				  'specialities' => $spec));
 	}
 	
 	private function IsValidId()

@@ -20,9 +20,16 @@ class M_Search
 		return self::$instance;
 	}
 
-	public function GetNew()
+	public function GetNewProjects()
 	{
 		$query = "SELECT * FROM projects ORDER BY project_id DESC LIMIT 10";
+		return $this->msql->Select($query);
+	}
+	
+	public function GetProjectsByType($type)
+	{
+		
+		$query = "SELECT * FROM projects WHERE speciality = {$type} ORDER BY project_id DESC LIMIT 10";
 		return $this->msql->Select($query);
 	}
 }

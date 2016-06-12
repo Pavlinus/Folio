@@ -35,5 +35,12 @@
 	
 	header('Content-type: text/html; charset=utf-8');
 	
-	$controller->Request($action);
+	if($_GET['c'] == 'search' && $_GET['act'] == 'search')
+	{
+		$controller->RequestAjax($action);
+	}
+	else
+	{
+		$controller->Request($action);
+	}
 ?>

@@ -1,14 +1,14 @@
 <div id="searchBoard">
 	<div id="searchBoardInner">
 		<div id="searchFilter">
-			<form method="post">
+			<form method="get">
 				<h3>Сфера деятельности:</h3>
-				<select>
-					<option value="IT">IT, программирование</option>
-					<option value="Graphics">Графика, дизайн</option>
-					<option value="Video">Видео, кино</option>
+				<select id="projectType">
+					<? foreach($specialities as $spec) : ?>
+						<option value="<?=$spec['spec_id']?>"><?=$spec['name']?></option>
+					<? endforeach; ?>
 				</select>
-				<input type="submit" class="button" value="Найти"/>
+				<input type="button" class="button" value="Найти" id="searchBtn"/>
 			</form>
 		</div>
 		<div id="searchResults">
@@ -45,3 +45,5 @@
 		</div>
 	</div>
 </div>
+
+<script src="../scripts/search.js" async></script>
