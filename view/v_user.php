@@ -11,6 +11,9 @@
 				<div id="optionButton">
 					<a href="index.php?c=project&act=add">Добавить проект</a>
 				</div>
+				<div id="optionButton">
+					<a href="index.php?c=settings&act=style">Изменить стиль</a>
+				</div>
 				<div></div>
 			</div>
 		<? endif; ?>

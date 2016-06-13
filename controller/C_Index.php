@@ -2,7 +2,8 @@
 class C_Index extends C_Base
 {
 	public function action_index()
-	{		
+	{	
+		$err_msg = '';
 		// Попытка авторизации, если были переданы данные
 		if($this->isPost())
 		{

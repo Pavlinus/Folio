@@ -324,6 +324,7 @@ div#inputAreaInner form>select {
 	color: #b0b0b0 !important;
 	margin: 40px 0 40px 0;
 	display: block;
+	font-size: 20px;
 }
 
 .separatorLine {
@@ -386,7 +387,7 @@ div#inputAreaInner form>select {
 }
 
 #signPanelMiddle {
-	height: 260px;
+	min-height: 240px;
 	background: #fff;
 }
 
@@ -412,12 +413,21 @@ div#inputAreaInner form>select {
 }
 
 #signPanelField {
-	padding-top: 40px;
+	padding-top: 30px;
 }
 
 .signPanelSubmit {
 	width: 360px;
 	height: 50px;
+	
+}
+
+#signPanelMiddle p {
+	color: #ff8b38 !important;
+	text-align: center;
+	font-size: 18px;
+	margin: 0;
+	padding-top: 20px;
 	
 }
 
@@ -710,7 +720,7 @@ footer {
 
 #footerInner #socialInner #socialItem{
 	float: left;
-	padding: 25px 15px 0 0;
+	padding: 30px 15px 0 0;
 }
 
 
@@ -838,6 +848,7 @@ footer {
 #searchFilter h3 {
 	line-height: 1.8;
 	color: #2b5865;
+	padding: 0;
 }
 
 #searchFilter:after {
@@ -876,4 +887,66 @@ footer {
 
 #searchResults #projectLink {
 	padding: 10px 0 20px 0;
+}
+
+
+/* ------------------------------ */
+
+
+/* Страница о проекте */
+
+#aboutPage {
+	width: 1400px;
+	background: #fff;
+	height: 90%;
+	margin: 0 auto;
+}
+
+#aboutPageInner {
+	width: 1100px;
+	padding-top: 60px;
+	margin: 0 auto;
+}
+
+#aboutPageInner:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+#aboutPageInner h1, h3 {
+	color: #2b5865;
+	text-align: center;
+	padding: 15px 0 15px 0;
+}
+
+#aboutPageInner h1 {
+	font-size: 30px;
+}
+
+#aboutPageInner .separatorLine {
+	margin: 0 auto;
+	padding: 10px 0 20px 0;
+	margin-bottom: 20px;
+}
+
+#aboutItem {
+	width: 250px;
+	padding: 60px 50px 0 0;
+	float: left;
+	text-align: center;
+}
+
+#aboutItem img {
+	display: block;
+	margin: 0 auto;
+}
+
+#itemContainer {
+	width: 850px;
+	margin: 0 auto;
+}
+
+#itemContainer :last-child {
+	padding-right: 0px;
 }

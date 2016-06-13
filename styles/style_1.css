@@ -1,0 +1,251 @@
+@font-face {
+	src: url("../fonts/Bebas.ttf");
+	font-family: "Bebas";
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #efefef;
+	background-position: center top;
+	background-attachment: fixed;
+}
+
+aside, nav, footer, header, section {
+	display: block;
+}
+
+ul {
+	list-style: none;
+}
+
+a, a:hover {
+	text-decoration: none;
+}
+
+p {
+	color: #333333;
+}
+
+select {
+	font-size: 15px;
+	height: 35px;
+	width: 300px;
+}
+
+#wrapper {
+	width: 1300px;
+	margin: 0 auto;
+	position: relative;
+}
+
+#middle {
+	margin: 0 auto;
+}
+
+#content {
+	
+}
+
+
+/* ------------------------------ */
+
+
+/* Стили главных блоков */
+
+#header {
+	width: 1300px;
+	height: 70px;
+	background: transparent;
+	margin: 0 auto;
+}
+
+#headerInner {
+	width: 1100px;
+	height: 70px;
+	position: relative;
+	margin: 0 auto;
+}
+
+
+/* ------------------------------ */
+
+
+/* Стили верхнего меню */
+
+#topMenuRight {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	z-index: 1;
+}
+
+#topMenuRight ul li {
+	float: left;
+	height: 70px;
+}
+
+#topMenuRight ul li a {
+	color: #fff;
+	padding: 25px 15px 27px 15px;
+	display: block;
+	font-size: 16px;
+	transition-duration: 0.1s;
+}
+
+#topMenuRight ul li a:hover {
+	color: #ffa700;
+	transition-duration: 0.1s;
+}
+
+
+/* ------------------------------ */
+
+
+/* Логотип */
+
+#logo {
+	position: absolute;
+	top: 20px;
+	left: 0px;
+	color: #fff;
+	transition-duration: 0.2s;
+}
+
+#logo h2 {
+	color: #fff;
+}
+
+#logo h2:hover {
+	color: #ff8b38;
+	transition-duration: 0.2s;
+}
+
+
+/* ------------------------------ */
+
+
+/* Билборд */
+
+#billboard {
+	width: 1300px;
+	height: 596px;
+	margin: 0 auto;
+	background-image: url('../images/style_1/city_d.png');
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+#billboard>h1 {
+	color: #fff;
+	font-size: 45px;
+	text-align: center;
+	
+}
+
+#avatar {
+	width: 150px;
+	height: 150px;
+	margin: 70px auto 40px auto;
+	background-image: url('../images/pavlinkov/thumb_new_me.png');
+	border-radius: 50%;
+	border: 2px solid #fff;
+}
+
+#projectArea {
+	width: inherit;
+	padding: 70px 0 70px;
+	margin: 0 auto;
+}
+
+#projectArea>h1 {
+	color: #000;
+	font-size: 24px;
+	text-align: center;
+}
+
+#projectAreaInner {
+	width: 1100px;
+	margin: inherit;
+}
+
+#itemsContainer {
+	width: inherit;
+	padding: 50px 0 0px 0;
+	margin: 0 auto;
+}
+
+#itemsContainer:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+#projectItem {
+	float: left;
+	width: 330px;
+	padding-right: 30px;
+}
+
+#projectItem>img {
+	width: inherit;
+}
+
+
+/* ------------------------------ */
+
+
+/* Контакты (footer) */
+
+footer {
+	width: inherit;
+	height: 680px;
+	background-image: url('../images/style_1/map.png');
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	margin: 0 auto;
+}
+
+#footerInner {
+	width: 1100px;
+	margin: 0 auto;
+	padding-top: 150px;
+}
+
+#footerInnerLeft {
+	float: left;
+	padding-right: 20px;
+}
+
+#footerInnerRight {
+	float: right;
+	width: 725px;
+}
+
+#footerInnerLeft #avatar, #info {
+	float: left;
+}
+
+#footerInnerLeft #avatar {
+	margin: 0 20px 0 0;
+	padding: 0;
+}
+
+#footerInnerLeft h1 {
+	font-size: 25px;
+	color: #fff;
+}
+
+#info {
+	max-width: 220px;
+	padding: 25px 0 0 0;
+}

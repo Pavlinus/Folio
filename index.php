@@ -29,6 +29,9 @@
 		case 'search':
 			$controller = new C_Search();
 			break;
+		case 'about':
+			$controller = new C_About();
+			break;
 		default:
 			$controller = new C_Index();
 	}

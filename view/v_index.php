@@ -1,9 +1,9 @@
 <div id="billboard">
 	<div id="billboardInner">
 		<h1>FOLIO</h1>
-		<h2>PLACE FOR YOUR PORTFOLIO</h2>
+		<h2>ТВОЕ ПОРТФОЛИО</h2>
 		<div class="separatorLine borderBottomWhite"></div>
-		<p>Project description bla bla</p>
+		<p>Расскажи о себе и своих достижениях</p>
 		
 		<a href="index.php?c=search&act=get" class="whiteBorderButton">Смотреть проекты</a>
 		
@@ -17,6 +17,7 @@
 						<a href="index.php?c=user&act=add">Регистрация</a>
 					</div>
 					<div id="signPanelMiddle">
+						<p><?=$err_msg?></p>
 						<div id="signPanelField">
 							<input class="signPanelInputText" type="text" name="login" placeholder="Логин"/>
 						</div>
