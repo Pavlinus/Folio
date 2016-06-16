@@ -25,6 +25,7 @@ class C_Index extends C_Base
 			}
 		}
 		
+		$this->css = 'style.css';
 		$this->content = $this->Template('view/v_index.php', 
 										 array(
 											'error' => $error,

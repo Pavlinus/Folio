@@ -156,26 +156,26 @@ select {
 	width: 150px;
 	height: 150px;
 	margin: 70px auto 40px auto;
-	background-image: url('../images/pavlinkov/thumb_new_me.png');
 	border-radius: 50%;
 	border: 2px solid #fff;
 }
 
 #projectArea {
-	width: inherit;
-	padding: 70px 0 70px;
+	width: 1300px;
 	margin: 0 auto;
+	background: #fff;
 }
 
 #projectArea>h1 {
 	color: #000;
-	font-size: 24px;
+	font-size: 34px;
 	text-align: center;
 }
 
 #projectAreaInner {
+	padding: 0 0 180px 0;
 	width: 1100px;
-	margin: inherit;
+	margin: 0 auto -70px auto;
 }
 
 #itemsContainer {
@@ -208,7 +208,7 @@ select {
 
 footer {
 	width: inherit;
-	height: 680px;
+	height: 480px;
 	background-image: url('../images/style_1/map.png');
 	background-repeat: no-repeat;
 	background-position: center bottom;
@@ -224,11 +224,12 @@ footer {
 #footerInnerLeft {
 	float: left;
 	padding-right: 20px;
+	max-width: 380px;
 }
 
 #footerInnerRight {
 	float: right;
-	width: 725px;
+	width: 650px;
 }
 
 #footerInnerLeft #avatar, #info {
@@ -248,4 +249,189 @@ footer {
 #info {
 	max-width: 220px;
 	padding: 25px 0 0 0;
+}
+
+#name_image:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+#contacts_info {
+	padding: 25px 0 0 0;
+}
+
+#contacts_info div {
+	padding: 30px 0 0 0;
+}
+
+#contacts_info div:first-child {
+	padding: 0 0 0 0;
+}
+
+#contacts_info div:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+#contacts_info div>img {
+	height: 30px;
+	display: block;
+	float: left;
+	padding: 0 20px 0 0;
+}
+
+#contacts_info p {
+	color: #fff;
+	font-size: 18px;
+}
+
+#social_info {
+	padding: 50px 0 0 0;
+}
+
+#social_info a>img:hover {
+	background: #d34836;
+	transition-duration: 0.2s;
+	border: 1px solid transparent;
+}
+
+#social_info img {
+	width: inherit;
+	border-radius: 50%;
+	border: 1px solid #fff;
+	width: 50px;
+	transition-duration: 0.2s;
+}
+
+.class_submit_btn {
+	background: #fdc426 !important;
+	color: #fff;
+	font-size: 18px;
+	width: 600px;
+	padding: 10px 0 10px 0 !important;
+}
+
+.class_submit_btn:hover {
+	background: #ffdc7a !important;
+}
+
+/* ------------------------------ */
+
+
+/* Детальная информация о пользователе */
+
+#details {
+	width: 1300px;
+	margin: 0 auto;
+	padding: 70px 0 0 0;
+}
+
+#detailsInner {
+	width: 800px;
+	margin: 0 auto;
+	color: #000;
+}
+
+#detailsInner h1 {
+	font-size: 34px;
+	padding: 50px 0 10px 0;
+}
+
+#detailsInner #detailsLeft:last-child {
+	padding-bottom: 50px;
+}
+
+#detailsLeft {
+	width: 380px;
+	border-right: 1px solid #cbcbcb;
+	padding-right: 19px;
+}
+
+#detailsLeft>h1, #detailsLeft>p {
+	padding-right: 30px;
+}
+
+#detailsRight {
+	margin: 0 0 0 auto;
+	width: 400px;
+	border-left: 1px solid #cbcbcb;
+}
+
+#detailsRight>h1, #detailsRight>p {
+	padding-left: 30px;
+}
+
+.l_yellow {
+	color: #ffd800;
+}
+
+.l_blue {
+	color: #00deff;
+}
+
+.l_green {
+	color: #3ce78c;
+}
+
+#gray_triangle {
+	width: inherit;
+	height: 88px;
+	background-image: url('../images/style_1/gray_foot.png');
+	background-repeat: no-repeat;
+	padding-bottom: 70px;
+}
+
+
+/* ------------------------------ */
+
+
+/* Панель управления (горизонтальная) */
+
+#controlPanel {
+	width: 1100px;
+	display: block;
+	margin: 0 auto;
+}
+
+#controlPanel #optionButton:first-child {
+	margin-left: 0px;
+}
+
+#controlPanel #optionButton {
+	float: left;
+}
+
+#controlPanel #optionButton {
+	margin-left: 10px;
+}
+
+#controlPanel div:last-child {
+	clear: both;
+}
+
+#optionButton {
+	width: auto;
+	margin: 10px 0 30px 60px;
+}
+
+#optionButton a {
+	text-align: center;
+	color: #fff;
+	padding: 8px 10px 8px 10px;
+	font-weight: normal;
+	font-size: 18px;
+	border-bottom: 1px dotted #86878b;
+}
+
+#optionButton a:hover {
+	border-bottom: 2px solid #ff8b38;
+}
+
+
+.pageMessage {
+	padding: 15px 0 30px 20px;
+	font-size: 18px;
+	display: block;
 }

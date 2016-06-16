@@ -17,6 +17,7 @@ class C_Project extends C_Base
 		$spec = $mProject->GetSpecialities();
 		
 		$this->content = $this->Template("view/v_project_add.php", array('specialities' => $spec));
+		$this->css = 'style.css';
 	}
 	
 	
@@ -119,6 +120,7 @@ class C_Project extends C_Base
 		$this->content = $this->Template("view/v_project_edit.php", 
 			array('project' => $project[0],
 				  'specialities' => $spec));
+		$this->css = 'style.css';
 	}
 	
 	private function IsValidId()

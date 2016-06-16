@@ -69,7 +69,11 @@ class C_User extends C_Base
 									'facebook' => '');
 		}
 		
-		$this->content = $this->Template('view/v_user.php', $assoc);
+		$mSettings = M_Settings::Instance();
+		$style = $mSettings->GetStyleValue($user[0]['settings_id']);
+		
+		$this->content = $this->Template('view/' . $style[0]['value'], $assoc);
+		$this->css = $style[0]['css'];
 	}
 	
 	
@@ -141,6 +145,7 @@ class C_User extends C_Base
 											array(
 												'user' => $user[0],
 												'social' => $social[0]));
+		$this->css = 'style.css';
 	}
 	
 	
