@@ -17,7 +17,6 @@ class C_Project extends C_Base
 		$spec = $mProject->GetSpecialities();
 		
 		$this->content = $this->Template("view/v_project_add.php", array('specialities' => $spec));
-		$this->css = 'style.css';
 	}
 	
 	
@@ -54,7 +53,7 @@ class C_Project extends C_Base
 	}
 	
 	
-	public function action_del()
+	public function action_delete()
 	{
 		if($this->isGet())
 		{
@@ -120,14 +119,13 @@ class C_Project extends C_Base
 		$this->content = $this->Template("view/v_project_edit.php", 
 			array('project' => $project[0],
 				  'specialities' => $spec));
-		$this->css = 'style.css';
 	}
 	
 	private function IsValidId()
 	{
 		if(!is_numeric($_GET['id']))
 		{
-			$error = "Не удалось получить данные проекта";
+			$error = "Используемый идентификатор некорректен";
 			$this->content = $this->Template('view/v_error.php', array('error' => $error));
 			return false;
 		}

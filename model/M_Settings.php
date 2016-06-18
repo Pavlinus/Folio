@@ -31,6 +31,29 @@ class M_Settings
 		
 		return $this->msql->Select($query);
 	}
+	
+	public function StyleExists($id)
+	{
+		$query = "SELECT * FROM styles WHERE style_id = {$id}";	
+		return $this->msql->Select($query);
+	}
+	
+	public function GetStylesAll()
+	{
+		$query = "SELECT * FROM styles";
+		return $this->msql->Select($query);
+	}
+	
+	public function UseStyle($style_id)
+	{
+		$mUser = M_User::Instance();
+		$setting = $mUser->GetSettingsId();
+		
+		$style = array('style_id' => $style_id);
+		$where = "setting_id = " . $setting[0]['settings_id'];
+		
+		return $this->msql->Update('settings', $style, $where);
+	}
 }
 
 ?>

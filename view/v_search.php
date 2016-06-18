@@ -18,7 +18,7 @@
 						<? foreach($projects as $project) : ?>
 							<div id="projectContent">
 								<div id="projectAreaInnerRight">
-									<img src="<?=$project['image']?>"/>
+									<div id="projectImage" class="no-margin" style="background-image: url(<?=$project['image']?>);"></div>
 								</div>
 								<div id="projectAreaInnerLeft">
 									<h2><?=$project['name']?></h2>

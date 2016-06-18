@@ -28,8 +28,9 @@ ul {
 	list-style: none;
 }
 
-a, a:hover {
+a, a:hover, a:visited {
 	text-decoration: none;
+	color: #000;
 }
 
 p {
@@ -140,7 +141,7 @@ select {
 	width: 1300px;
 	height: 596px;
 	margin: 0 auto;
-	background-image: url('../images/style_1/city_d.png');
+	background-image: url('../images/style_autumn/city_d.png');
 	background-repeat: no-repeat;
 	background-position: center top;
 }
@@ -149,7 +150,10 @@ select {
 	color: #fff;
 	font-size: 45px;
 	text-align: center;
-	
+}
+
+#billboard>#controlPanel>#optionButton a{
+	color: #fff;
 }
 
 #avatar {
@@ -190,14 +194,27 @@ select {
 	clear: both;
 }
 
+#projectItem>#optionButton {
+	padding-top: 10px;
+	margin: 10px 0 30px 0px;
+}
+
 #projectItem {
 	float: left;
 	width: 330px;
 	padding-right: 30px;
 }
 
-#projectItem>img {
-	width: inherit;
+#projectItem>a>h3, #projectItem>p{
+	padding: 10px 10px 5px 10px;
+}
+
+#projectImage {
+	width: 330px;
+	height: 180px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 
@@ -209,7 +226,7 @@ select {
 footer {
 	width: inherit;
 	height: 480px;
-	background-image: url('../images/style_1/map.png');
+	background-image: url('../images/style_autumn/map.png');
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	margin: 0 auto;
@@ -303,6 +320,7 @@ footer {
 	border: 1px solid #fff;
 	width: 50px;
 	transition-duration: 0.2s;
+	margin-right: 20px;
 }
 
 .class_submit_btn {
@@ -378,7 +396,7 @@ footer {
 #gray_triangle {
 	width: inherit;
 	height: 88px;
-	background-image: url('../images/style_1/gray_foot.png');
+	background-image: url('../images/style_autumn/gray_foot.png');
 	background-repeat: no-repeat;
 	padding-bottom: 70px;
 }
@@ -418,7 +436,7 @@ footer {
 
 #optionButton a {
 	text-align: center;
-	color: #fff;
+	color: #000;
 	padding: 8px 10px 8px 10px;
 	font-weight: normal;
 	font-size: 18px;

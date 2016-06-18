@@ -138,6 +138,10 @@ select {
 	max-height: 100px;
 }
 
+.no-margin {
+	margin: 0 !important;
+}
+
 
 /* ------------------------------ */
 
@@ -593,6 +597,17 @@ div#inputAreaInner form>select {
 
 /* Соц. сети */
 
+#userInfo>#social #socialInner {
+	width: 120px;
+	content: '';
+	display: block;
+	clear: both;
+}
+
+#userInfo>#social #socialItem {
+	margin-right: 15px;
+}
+
 #social {
 	width: 50px;
 	padding-top: 45px;
@@ -604,6 +619,10 @@ div#inputAreaInner form>select {
 
 #socialInner img {
 	width: 45px;
+}
+
+#socialInner>#socialItem {
+	float: left;
 }
 
 #socialItem img {
@@ -687,6 +706,16 @@ div#inputAreaInner form>select {
 
 #projectAreaInnerRight:after {
 	clear: both;
+}
+
+#projectImage {
+	width: 500px;
+	height: 240px;
+	margin-left: 70px;
+	/*box-shadow: 0px 0px 15px rgba(0,0,0,0.4);*/
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 
@@ -837,7 +866,7 @@ footer {
 }
 
 #searchFilter {
-	padding: 0 0 35px 85px;
+	padding: 0 0 35px 60px;
 }
 
 #searchFilter form>h3, #searchFilter form>select, #searchFilter form>input {
@@ -949,4 +978,44 @@ footer {
 
 #itemContainer :last-child {
 	padding-right: 0px;
+}
+
+
+/* ------------------------------ */
+
+
+/* Окно стилей */
+
+#styles {
+	width: 1400px;
+	min-height: 61%;
+	margin: 0 auto;
+}
+
+#stylesInner {
+	width: 1100px;
+	background: #fff;
+	padding: 25px 0 25px 0;
+	margin: 50px auto 40px auto;
+}
+
+#styleContainer {
+	width: 480px;
+	padding: 0 35px 0 35px;
+	float: left;
+}
+
+#stylesInner:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+#styleContainer>img {
+	display: block;
+	width: inherit:
+}
+
+#styleContainer>a {
+	margin: 10px 15px 0 0;
 }

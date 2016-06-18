@@ -10,40 +10,31 @@
 		<header id="header">
 			<div id="headerInner">
 				<div id="logo">
-					<a href="index.php"><h2>FOLIO</h2></a>
+					<a href="#"><h2>FOLIO</h2></a>
 				</div>
 				<nav id="topMenuRight">
 					<ul>
-						<li><a href="index.php?c=about">О ПРОЕКТЕ</a></li>
-						<li><a href="#contacts">КОНТАКТЫ</a></li>
-						<? 
-							session_start();
-							if(isset($_SESSION['sid'])) : ?>
-								<li><a href="index.php?c=user&act=get&id=<?=$_COOKIE['user_id']?>">ПРОФИЛЬ</a></li>
-								<li><a href="index.php?c=user&act=logout">ВЫЙТИ</a></li>
-						<? endif; ?>
+						<li><a href="#">О ПРОЕКТЕ</a></li>
+						<li><a href="#">КОНТАКТЫ</a></li>
+						<li><a href="#">ПРОФИЛЬ</a></li>
+						<li><a href="#">ВЫЙТИ</a></li>
 					</ul>
 				</nav>
 			</div>
 		</header>
 		
-		<? 
-			session_start();
-			if(isset($_SESSION['sid']) && $_GET['id'] == $_COOKIE['user_id']) : 
-		?>
-			<div id="controlPanel">
-				<div id="optionButton">
-					<a href="index.php?c=user&act=edit">Редактировать</a>
-				</div>
-				<div id="optionButton">
-					<a href="index.php?c=project&act=add">Добавить проект</a>
-				</div>
-				<div id="optionButton">
-					<a href="index.php?c=settings&act=style">Изменить стиль</a>
-				</div>
-				<div></div>
+		<div id="controlPanel">
+			<div id="optionButton">
+				<a href="#">Редактировать</a>
 			</div>
-		<? endif; ?>
+			<div id="optionButton">
+				<a href="#">Добавить проект</a>
+			</div>
+			<div id="optionButton">
+				<a href="#">Изменить стиль</a>
+			</div>
+			<div></div>
+		</div>
 		<div id="avatar" style="background: url(<?=$user['avatar_thumb']?>) no-repeat center center;"></div>
 		<h1><?=$user['f_name'] . " " . $user['l_name']?></h1>
 	</div>
@@ -73,15 +64,15 @@
 				<? foreach($projects as $project) : ?>
 				<div id="projectItem">
 					<div id="projectImage" style="background-image: url(<?=$project['image']?>);"></div>
-					<a href="<?=$project['link']?>"><h3><?=$project['name']?></h3></a>
+					<a href="#"><h3><?=$project['name']?></h3></a>
 					<p><?=$project['description']?></p>
 					<? 
 						session_start();
 						if(isset($_SESSION['sid']) && $_GET['id'] == $_COOKIE['user_id']) : 
 					?>
 						<div id="optionButton">
-							<a href="index.php?c=project&act=edit&id=<?=$project['project_id']?>">Изменить</a>
-							<a href="index.php?c=project&act=delete&id=<?=$project['project_id']?>">Удалить</a>
+							<a href="#">Изменить</a>
+							<a href="#">Удалить</a>
 						</div>
 					<? endif; ?>
 				</div>
@@ -121,13 +112,8 @@
 				<div id="contacts">
 					<div id="social_info">
 						<? if($social['vk'] != '') : ?>
-							<a href="<?=$social['vk']?>">
+							<a href="#">
 								<img src="../images/style_autumn/vk.png"/>
-							</a>
-						<? endif; ?>
-						<? if($social['facebook'] != '') : ?>
-							<a href="<?=$social['facebook']?>">
-								<img src="../images/style_autumn/fb.png"/>
 							</a>
 						<? endif; ?>
 					</div>

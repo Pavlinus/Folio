@@ -7,7 +7,7 @@ class M_Project
 	private $keysArray = array('name', 
 							   'description', 
 							   'link',
-							   'type');
+							   'speciality');
 	
 	function __construct()
 	{
@@ -46,7 +46,7 @@ class M_Project
 		}
 		else
 		{
-			$image = "../images/project_default.png";
+			$image['orig'] = "../images/project_default.png";
 		}
 		
 		$params = array(

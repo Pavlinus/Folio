@@ -27,6 +27,35 @@ class C_User extends C_Base
 			header("Location: index.php");
 		}
 		
+		$assoc = $this->UserDataAssoc($user_id);
+		
+		if($assoc['user'] == null)
+		{
+			$error = "Не удалось получить данные пользователя";
+			$this->content = $this->Template('view/v_error.php', array('error' => $error));
+			return;
+		}
+		
+		if($assoc['social'] == null)
+		{
+			$assoc['social'] = array(
+									'vk' => '', 
+									'facebook' => '');
+		}
+		
+		$user = $assoc['user'];
+		$mSettings = M_Settings::Instance();
+		$style = $mSettings->GetStyleValue($user['settings_id']);
+		
+		$this->content = $this->Template('view/' . $style[0]['value'], $assoc);
+		$this->css = $style[0]['css'];
+	}
+	
+	
+	public function UserDataAssoc($user_id)
+	{
+		$assoc = array();
+		
 		// Проекты
 		$mProject = M_Project::Instance();
 		$projects = $mProject->All($user_id);
@@ -55,25 +84,7 @@ class C_User extends C_Base
 			}
 		}
 		
-		if($assoc['user'] == null)
-		{
-			$error = "Не удалось получить данные пользователя";
-			$this->content = $this->Template('view/v_error.php', array('error' => $error));
-			return;
-		}
-		
-		if($assoc['social'] == null)
-		{
-			$assoc['social'] = array(
-									'vk' => '', 
-									'facebook' => '');
-		}
-		
-		$mSettings = M_Settings::Instance();
-		$style = $mSettings->GetStyleValue($user[0]['settings_id']);
-		
-		$this->content = $this->Template('view/' . $style[0]['value'], $assoc);
-		$this->css = $style[0]['css'];
+		return $assoc;
 	}
 	
 	
@@ -145,7 +156,6 @@ class C_User extends C_Base
 											array(
 												'user' => $user[0],
 												'social' => $social[0]));
-		$this->css = 'style.css';
 	}
 	
 	

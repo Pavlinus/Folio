@@ -1,22 +1,17 @@
 <div id="userboard">
 	<div id="userboardInner">
-		<? 
-			session_start();
-			if(isset($_SESSION['sid']) && $_GET['id'] == $_COOKIE['user_id']) : 
-		?>
-			<div id="controlPanel">
-				<div id="optionButton">
-					<a href="index.php?c=user&act=edit">Редактировать</a>
-				</div>
-				<div id="optionButton">
-					<a href="index.php?c=project&act=add">Добавить проект</a>
-				</div>
-				<div id="optionButton">
-					<a href="index.php?c=settings&act=style">Изменить стиль</a>
-				</div>
-				<div></div>
+		<div id="controlPanel">
+			<div id="optionButton">
+				<a href="#">Редактировать</a>
 			</div>
-		<? endif; ?>
+			<div id="optionButton">
+				<a href="#">Добавить проект</a>
+			</div>
+			<div id="optionButton">
+				<a href="#">Изменить стиль</a>
+			</div>
+			<div></div>
+		</div>
 		
 		<div id="avatar" style="background: url(<?=$user['avatar_thumb']?>) no-repeat center center;">
 		</div>
@@ -55,14 +50,14 @@
 					<div id="socialInner">
 						<? if($social['vk'] != '') : ?>
 							<div id="socialItem">
-								<a href="<?=$social['vk']?>">
+								<a href="#">
 									<img src="images/style_default/vk.png"/>
 								</a>
 							</div>
 						<? endif; ?>
 						<? if($social['facebook'] != '') : ?>
 							<div id="socialItem">
-								<a href="<?=$social['facebook']?>">
+								<a href="#">
 									<img src="images/style_default/fb.png"/>
 								</a>
 							</div>
@@ -85,15 +80,14 @@
 									<h2><?=$project['name']?></h2>
 									<div class="borderBottomOrange separatorLine"></div>
 									<div id="projectLink">
-										<a href="<?=$project['link']?>">
+										<a href="#">
 											<?=$project['link_cut']?>
 										</a>
 									</div>
 									<p><?=$project['description']?></p>
 								</div>
 								<div id="projectAreaInnerRight">
-									<div id="projectImage" style="background-image: url(<?=$project['image']?>);"></div>
-									<!--<img src="<?//=$project['image']?>"/>-->
+									<img src="<?=$project['image']?>"/>
 								</div>
 							</div>
 							<? 
@@ -101,8 +95,7 @@
 								if(isset($_SESSION['sid']) && $_GET['id'] == $_COOKIE['user_id']) : 
 							?>
 								<div id="optionButton">
-									<a href="index.php?c=project&act=edit&id=<?=$project['project_id']?>">Изменить</a>
-									<a href="index.php?c=project&act=delete&id=<?=$project['project_id']?>">Удалить</a>
+									<a href="#">Изменить</a>
 								</div>
 							<? endif; ?>
 						<? endforeach; ?>

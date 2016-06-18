@@ -302,5 +302,12 @@ class M_User
 			return '';
 		}
 	}
+	
+	
+	public function GetSettingsId()
+	{
+		$query = "SELECT settings_id FROM users WHERE user_id = " . $_COOKIE['user_id'];
+		return $this->msql->Select($query);
+	}
 }
 ?>
