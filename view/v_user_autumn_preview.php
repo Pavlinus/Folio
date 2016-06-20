@@ -5,12 +5,13 @@
 	<meta charset="utf-8"/>
 	<link rel="stylesheet" type="text/css" href="../styles/style_autumn.css">
 </head>
+<title>CREATA</title>
 <body>
 	<div id="billboard">
 		<header id="header">
 			<div id="headerInner">
 				<div id="logo">
-					<a href="#"><h2>FOLIO</h2></a>
+					<a href="#"><h2>CREATA</h2></a>
 				</div>
 				<nav id="topMenuRight">
 					<ul>
@@ -35,7 +36,7 @@
 			</div>
 			<div></div>
 		</div>
-		<div id="avatar" style="background: url(<?=$user['avatar_thumb']?>) no-repeat center center;"></div>
+		<div id="avatar" style="background-image: url(<?=$user['avatar_thumb']?>);"></div>
 		<h1><?=$user['f_name'] . " " . $user['l_name']?></h1>
 	</div>
 	
@@ -88,7 +89,7 @@
 		<div id="footerInner">
 			<div id="footerInnerLeft">
 				<div id="name_image">
-					<div id="avatar" style="background: url(<?=$user['avatar_thumb']?>) no-repeat center center;"></div>
+					<div id="avatar" style="background-image: url(<?=$user['avatar_thumb']?>);"></div>
 					<div id="info">
 						<h1>Павел Ковыршин</h1>
 					</div>
@@ -112,8 +113,13 @@
 				<div id="contacts">
 					<div id="social_info">
 						<? if($social['vk'] != '') : ?>
-							<a href="#">
+							<a href="<?=$social['vk']?>">
 								<img src="../images/style_autumn/vk.png"/>
+							</a>
+						<? endif; ?>
+						<? if($social['facebook'] != '') : ?>
+							<a href="<?=$social['facebook']?>">
+								<img src="../images/style_autumn/fb.png"/>
 							</a>
 						<? endif; ?>
 					</div>

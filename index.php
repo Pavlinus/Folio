@@ -14,8 +14,26 @@
 	
 	$action = 'action_';
 	$action .= (isset($_GET['act'])) ? $_GET['act'] : 'index';
+	
+	if(!isset($_GET['c']))
+	{
+		$ctrl = 'index';
+	}
+	else
+	{
+		$ctrl = $_GET['c'];
+	}
+	
+	if(!isset($_GET['act']))
+	{
+		$act = 'index';
+	}
+	else
+	{
+		$act = $_GET['act'];
+	}
 
-	switch ($_GET['c'])
+	switch ($ctrl)
 	{
 		case 'user':
 			$controller = new C_User();
@@ -32,13 +50,14 @@
 		case 'about':
 			$controller = new C_About();
 			break;
+		case 'index':
 		default:
 			$controller = new C_Index();
 	}
 	
 	header('Content-type: text/html; charset=utf-8');
 	
-	if($_GET['c'] == 'search' && $_GET['act'] == 'search')
+	if($ctrl == 'search' && $act == 'search')
 	{
 		$controller->RequestAjax($action);
 	}

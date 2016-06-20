@@ -1,3 +1,19 @@
+<?
+	if (session_status() !== PHP_SESSION_ACTIVE) 
+	{ 
+		session_start(); 
+	}
+	
+	if(!isset($_COOKIE['user_id']))
+	{
+		$controlEnabled = false;
+	}
+	else
+	{
+		$controlEnabled = $_GET['id'] == $_COOKIE['user_id'] ? true : false;
+	}
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -5,20 +21,19 @@
 	<meta charset="utf-8"/>
 	<link rel="stylesheet" type="text/css" href="../styles/style_autumn.css">
 </head>
+<title>CREATA</title>
 <body>
 	<div id="billboard">
 		<header id="header">
 			<div id="headerInner">
 				<div id="logo">
-					<a href="index.php"><h2>FOLIO</h2></a>
+					<a href="index.php"><h2>CREATA</h2></a>
 				</div>
 				<nav id="topMenuRight">
 					<ul>
 						<li><a href="index.php?c=about">О ПРОЕКТЕ</a></li>
 						<li><a href="#contacts">КОНТАКТЫ</a></li>
-						<? 
-							session_start();
-							if(isset($_SESSION['sid'])) : ?>
+						<? if($controlEnabled) : ?>
 								<li><a href="index.php?c=user&act=get&id=<?=$_COOKIE['user_id']?>">ПРОФИЛЬ</a></li>
 								<li><a href="index.php?c=user&act=logout">ВЫЙТИ</a></li>
 						<? endif; ?>
@@ -27,10 +42,7 @@
 			</div>
 		</header>
 		
-		<? 
-			session_start();
-			if(isset($_SESSION['sid']) && $_GET['id'] == $_COOKIE['user_id']) : 
-		?>
+		<? if($controlEnabled) : ?>
 			<div id="controlPanel">
 				<div id="optionButton">
 					<a href="index.php?c=user&act=edit">Редактировать</a>
@@ -44,7 +56,7 @@
 				<div></div>
 			</div>
 		<? endif; ?>
-		<div id="avatar" style="background: url(<?=$user['avatar_thumb']?>) no-repeat center center;"></div>
+		<div id="avatar" style="background-image: url(<?=$user['avatar_thumb']?>);"></div>
 		<h1><?=$user['f_name'] . " " . $user['l_name']?></h1>
 	</div>
 	
@@ -73,17 +85,16 @@
 				<? foreach($projects as $project) : ?>
 				<div id="projectItem">
 					<div id="projectImage" style="background-image: url(<?=$project['image']?>);"></div>
-					<a href="<?=$project['link']?>"><h3><?=$project['name']?></h3></a>
+					<a href="<?=$project['link']?>" target="_blank"><h3><?=$project['name']?></h3></a>
 					<p><?=$project['description']?></p>
-					<? 
-						session_start();
-						if(isset($_SESSION['sid']) && $_GET['id'] == $_COOKIE['user_id']) : 
-					?>
+					
+					<? if($controlEnabled) : ?>
 						<div id="optionButton">
 							<a href="index.php?c=project&act=edit&id=<?=$project['project_id']?>">Изменить</a>
 							<a href="index.php?c=project&act=delete&id=<?=$project['project_id']?>">Удалить</a>
 						</div>
 					<? endif; ?>
+					
 				</div>
 				<? endforeach; ?>
 			<? else : ?>
@@ -97,7 +108,7 @@
 		<div id="footerInner">
 			<div id="footerInnerLeft">
 				<div id="name_image">
-					<div id="avatar" style="background: url(<?=$user['avatar_thumb']?>) no-repeat center center;"></div>
+					<div id="avatar" style="background-image: url(<?=$user['avatar_thumb']?>);"></div>
 					<div id="info">
 						<h1>Павел Ковыршин</h1>
 					</div>

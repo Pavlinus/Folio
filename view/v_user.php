@@ -1,8 +1,16 @@
 <div id="userboard">
 	<div id="userboardInner">
-		<? 
-			session_start();
-			if(isset($_SESSION['sid']) && $_GET['id'] == $_COOKIE['user_id']) : 
+		<? 			
+			if(!isset($_COOKIE['user_id']))
+			{
+				$controlEnabled = false;
+			}
+			else
+			{
+				$controlEnabled = $_GET['id'] == $_COOKIE['user_id'] ? true : false;
+			}
+			
+			if($controlEnabled) : 
 		?>
 			<div id="controlPanel">
 				<div id="optionButton">
@@ -18,33 +26,43 @@
 			</div>
 		<? endif; ?>
 		
-		<div id="avatar" style="background: url(<?=$user['avatar_thumb']?>) no-repeat center center;">
+		<div id="avatar" style="background-image: url(<?=$user['avatar_thumb']?>);">
 		</div>
 		
 		<div id="userInfo">
 			<h2><?=$user['f_name'] . " " . $user['l_name']?></h2>
 			<div id="userInfoDetails">
 				<div id="userDetailsLeft">
-					<div id="userDetailsField">
-						<img src="../images/location_50.png" />
-						<p><?=$user['location']?></p>
-					</div>
-					<div id="userDetailsField">
-						<img src="../images/skills_50.png" />
-						<p><?=$user['skills']?></p>
-					</div>
-					<div id="userDetailsField">
-						<img src="../images/education_50.png" />
-						<p><?=$user['education']?></p>
-					</div>
-					<div id="userDetailsField">
-						<img src="../images/mail_50.png" />
-						<p><?=$user['email']?></p>
-					</div>
-					<div id="userDetailsField">
-						<img src="../images/phone_50.png" />
-						<p><?=$user['phone']?></p>
-					</div>
+					<? if($user['location'] != '') : ?>
+						<div id="userDetailsField">
+							<img src="../images/location_50.png" />
+							<p><?=$user['location']?></p>
+						</div>
+					<? endif; ?>
+					<? if($user['skills'] != '') : ?>
+						<div id="userDetailsField">
+							<img src="../images/skills_50.png" />
+							<p><?=$user['skills']?></p>
+						</div>
+					<? endif; ?>
+					<? if($user['education'] != '') : ?>
+						<div id="userDetailsField">
+							<img src="../images/education_50.png" />
+							<p><?=$user['education']?></p>
+						</div>
+					<? endif; ?>
+					<? if($user['email'] != '') : ?>
+						<div id="userDetailsField">
+							<img src="../images/mail_50.png" />
+							<p><?=$user['email']?></p>
+						</div>
+					<? endif; ?>
+					<? if($user['phone'] != '') : ?>
+						<div id="userDetailsField">
+							<img src="../images/phone_50.png" />
+							<p><?=$user['phone']?></p>
+						</div>
+					<? endif; ?>
 				</div>
 				<div id="userDetailsRight">
 					<p><?=$user['about']?></p>
@@ -97,8 +115,7 @@
 								</div>
 							</div>
 							<? 
-								session_start();
-								if(isset($_SESSION['sid']) && $_GET['id'] == $_COOKIE['user_id']) : 
+								if($controlEnabled) : 
 							?>
 								<div id="optionButton">
 									<a href="index.php?c=project&act=edit&id=<?=$project['project_id']?>">Изменить</a>

@@ -1,14 +1,19 @@
 <?php
 	
 class C_User extends C_Base 
-{
+{	
+	private $msql;
+	
+	public function __construct()
+	{
+		$this->msql = M_MSQL::Instance();
+	}
+	
 	//
 	// Страница профиля
 	//
 	public function action_get()
-	{
-		session_start();
-		
+	{		
 		$assoc = array();
 		
 		if(isset($_GET['id']))
@@ -20,7 +25,7 @@ class C_User extends C_Base
 				return;
 			}
 			
-			$user_id = mysql_real_escape_string(trim($_GET['id']));
+			$user_id = mysqli_real_escape_string($this->msql->GetConnectionLink(), trim($_GET['id']));
 		}
 		else
 		{
@@ -93,10 +98,22 @@ class C_User extends C_Base
 	//
 	public function action_add()
 	{
+		$error = false;
+		$err_msg = '';
+		$form_data = array('login' => '',
+					  'f_name' => '',
+					  'l_name' => '',
+					  'email' => '');
+		
 		if($this->isPost())
 		{
 			$mUser = M_User::Instance();
 			$result = $mUser->Add();
+			
+			foreach($form_data as $key => $value)
+			{
+				$form_data[$key] = $_REQUEST[$key];
+			}
 			
 			if($result == -1)
 			{
@@ -121,7 +138,8 @@ class C_User extends C_Base
 		$this->content = $this->Template('view/v_user_add.php', 
 										 array(
 												'error' => $error,
-												'err_msg' => $err_msg));
+												'err_msg' => $err_msg,
+												'form_data' => $form_data));
 	}
 	
 	

@@ -5,6 +5,7 @@
 class M_MSQL
 {
 	private static $instance;
+	private $connLink;
 	
 	public static function Instance()
 	{	
@@ -29,17 +30,17 @@ class M_MSQL
 	//
 	public function Select($query)
 	{
-		$result = mysql_query($query);
+		$result = mysqli_query($this->connLink, $query);
 		
 		if (!$result)
 			die(mysql_error());
 		
-		$n = mysql_num_rows($result);
+		$n = mysqli_num_rows($result);
 		$arr = array();
 	
 		for($i = 0; $i < $n; $i++)
 		{
-			$row = mysql_fetch_assoc($result);		
+			$row = mysqli_fetch_assoc($result);		
 			$arr[] = $row;
 		}
 
@@ -59,7 +60,7 @@ class M_MSQL
 	
 		foreach ($object as $key => $value)
 		{
-			$key = mysql_real_escape_string($key . '');
+			$key = mysqli_real_escape_string($this->connLink, $key . '');
 			$columns[] = $key;
 			
 			if ($value === null)
@@ -68,7 +69,7 @@ class M_MSQL
 			}
 			else
 			{
-				$value = mysql_real_escape_string($value . '');						
+				$value = mysqli_real_escape_string($this->connLink, $value . '');
 				$values[] = "'$value'";
 			}
 		}
@@ -77,12 +78,12 @@ class M_MSQL
 		$values_s = implode(',', $values);  
 			
 		$query = "INSERT INTO $table ($columns_s) VALUES ($values_s)";
-		$result = mysql_query($query);
+		$result = mysqli_query($this->connLink, $query);
 								
 		if (!$result)
-			die(mysql_error());
+			die(mysqli_error($this->connLink));
 			
-		return mysql_insert_id();
+		return mysqli_insert_id($this->connLink);
 	}
 	
 	//
@@ -98,7 +99,7 @@ class M_MSQL
 	
 		foreach ($object as $key => $value)
 		{
-			$key = mysql_real_escape_string($key . '');
+			$key = mysqli_real_escape_string($this->connLink, $key . '');
 			
 			if ($value === null)
 			{
@@ -106,19 +107,19 @@ class M_MSQL
 			}
 			else
 			{
-				$value = mysql_real_escape_string($value . '');					
+				$value = mysqli_real_escape_string($this->connLink, $value . '');					
 				$sets[] = "$key='$value'";			
 			}			
 		}
 
 		$sets_s = implode(',', $sets);			
 		$query = "UPDATE $table SET $sets_s WHERE $where";
-		$result = mysql_query($query);
+		$result = mysqli_query($this->connLink, $query);
 		
 		if (!$result)
-			die(mysql_error());
+			die(mysqli_error($this->connLink));
 
-		return mysql_affected_rows();	
+		return mysqli_affected_rows($this->connLink);	
 	}
 	
 	//
@@ -130,32 +131,34 @@ class M_MSQL
 	public function Delete($table, $where)
 	{
 		$query = "DELETE FROM $table WHERE $where";		
-		$result = mysql_query($query);
+		$result = mysqli_query($this->connLink, $query);
 						
 		if (!$result)
-			die(mysql_error());
+			die(mysqli_error($this->connLink));
 
-		return mysql_affected_rows();	
+		return mysqli_affected_rows($this->connLink);
 	}
 	
 	private function connect_db() 
 	{
 		// Настройки подключения к БД.
 		$hostname = 'localhost'; 
-		$username = 'root'; 
-		$password = '';
-		$dbName = 'portfolio';
+		$username = 'zyqjkokx_pavlin'; 
+		$password = '3S3o5Y9h';
+		$dbName = 'zyqjkokx_creata';
 	
 		// Языковая настройка.
 		setlocale(LC_ALL, 'ru_RU.UTF-8'); // Устанавливаем нужную локаль (для дат, денег, запятых и пр.)
 		mb_internal_encoding('UTF-8'); // Устанавливаем кодировку строк
 	
 		// Подключение к БД.
-		mysql_connect($hostname, $username, $password) or die('Проблемы с подключением к базе данных'); 
-		mysql_query('SET NAMES utf8');
-		mysql_select_db($dbName) or die('Базы данных не существует');
-
-		// Открытие сессии.
-		session_start();
+		$this->connLink = mysqli_connect($hostname, $username, $password) or die('Проблемы с подключением к базе данных'); 
+		mysqli_query($this->connLink, 'SET NAMES utf8');
+		mysqli_select_db($this->connLink, $dbName) or die('Базы данных не существует');
+	}
+	
+	public function GetConnectionLink()
+	{
+		return $this->connLink;
 	}
 }

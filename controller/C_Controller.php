@@ -41,7 +41,9 @@ abstract class C_Controller
 	}	
 	
 	public function __call($name, $params){
-        die('Вызываемый `' . $name .'` метод не найден.');
+        $error = "Не удалось загрузить страницу";
+		$this->content = $this->Template('view/v_error.php', array('error' => $error));
+		return;
 	}
 }
 

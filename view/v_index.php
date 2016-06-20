@@ -1,6 +1,6 @@
 <div id="billboard">
 	<div id="billboardInner">
-		<h1>FOLIO</h1>
+		<h1>CREATA</h1>
 		<h2>ТВОЕ ПОРТФОЛИО</h2>
 		<div class="separatorLine borderBottomWhite"></div>
 		<p>Расскажи о себе и своих достижениях</p>
@@ -8,8 +8,12 @@
 		<a href="index.php?c=search&act=get" class="whiteBorderButton">Смотреть проекты</a>
 		
 		<? 
-			session_start();
-			if(!isset($_SESSION['sid'])) : 
+			if (session_status() !== PHP_SESSION_ACTIVE ) 
+			{ 
+				session_start(); 
+			}
+			
+			if(!isset($_COOKIE['user_id'])) : 
 		?>
 			<form method="post">
 				<div id="signPanel">

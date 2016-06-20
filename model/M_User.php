@@ -5,6 +5,7 @@ class M_User
 	private static $instance;
 	
 	private $msql;
+	private $connectionLink;
 	private $uid;
 	private $sid;
 	private $keysArray = array('f_name', 
@@ -23,6 +24,7 @@ class M_User
 	function __construct()
 	{
 		$this->msql = M_MSQL::Instance();
+		$this->connectionLink = $this->msql->GetConnectionLink();
 	}
 	
 	
@@ -53,7 +55,7 @@ class M_User
 			return -1;
 		}
 		
-		if($_FILES['avatar']['name'] != "")
+		if(isset($_FILES['avatar']) && $_FILES['avatar']['name'] != "")
 		{			
 			$image_handler = ImageHandler::Instance();
 			$images = $image_handler->UploadUserImage($_FILES['image'], 
@@ -64,21 +66,27 @@ class M_User
 			$images = array("../images/user_default.png", "../images/user_default.png");
 		}
 		
+		// Добавляем новое поле настроек в БД
+		$mSettings = M_Settings::Instance();
+		$mSettings->Add();
+		
 		$user_data = array( 
-				'avatar' => mysql_real_escape_string($images[0]),
-				'avatar_thumb' => mysql_real_escape_string($images[1]),
-				'role_id' => self::USER_ROLE);
+				'avatar' => mysqli_real_escape_string($this->connectionLink, $images[0]),
+				'avatar_thumb' => mysqli_real_escape_string($this->connectionLink, $images[1]),
+				'role_id' => self::USER_ROLE,
+				'settings_id' => mysqli_insert_id($this->connectionLink));
 				
 		foreach($this->keysArray as $val)
 		{
-			$user_data[$val] = mysql_real_escape_string(trim($_REQUEST[$val]));
+			$user_data[$val] = mysqli_real_escape_string($this->connectionLink, trim($_REQUEST[$val]));
 		}
 		
-		$user_data['login'] = mysql_real_escape_string(trim($_REQUEST['login']));
-		$user_data['password'] = mysql_real_escape_string(md5(trim($_REQUEST['password'])));
+		$user_data['login'] = mysqli_real_escape_string($this->connectionLink, trim($_REQUEST['login']));
+		$user_data['password'] = mysqli_real_escape_string($this->connectionLink, (md5(trim($_REQUEST['password']))));
 		$this->msql->Insert('users', $user_data);
 		
-		$socials = $this->SocialsDataArray(mysql_insert_id());
+		// Запись данных соц. сетей
+		$socials = $this->SocialsDataArray(mysqli_insert_id($this->connectionLink));
 		$this->msql->Insert('social', $socials);
 	}
 	
@@ -88,7 +96,7 @@ class M_User
 	//
 	private function LoginIsAvailable()
 	{
-		$login = mysql_real_escape_string(trim($_REQUEST['login']));
+		$login = mysqli_real_escape_string($this->connectionLink, trim($_REQUEST['login']));
 		$rows = $this->GetByLogin($login);
 		
 		if(count($rows) > 0)
@@ -239,20 +247,20 @@ class M_User
 		}
 		
 		$user_data = array( 
-				'avatar' => mysql_real_escape_string($images[0]),
-				'avatar_thumb' => mysql_real_escape_string($images[1]),
+				'avatar' => mysqli_real_escape_string($this->connectionLink, $images[0]),
+				'avatar_thumb' => mysqli_real_escape_string($this->connectionLink, $images[1]),
 				'role_id' => self::USER_ROLE);
 				
 		foreach($this->keysArray as $val)
 		{
-			$user_data[$val] = mysql_real_escape_string(trim($_REQUEST[$val]));
+			$user_data[$val] = mysqli_real_escape_string($this->connectionLink, trim($_REQUEST[$val]));
 		}
 		
 		// Если новый пользователь
 		if(isset($_REQUEST['login']) && isset($_REQUEST['password']))
 		{
-			$user_data['login'] = mysql_real_escape_string(trim($_REQUEST['login']));
-			$user_data['password'] = mysql_real_escape_string(md5(trim($_REQUEST['password'])));
+			$user_data['login'] = mysqli_real_escape_string($this->connectionLink, trim($_REQUEST['login']));
+			$user_data['password'] = mysqli_real_escape_string($this->connectionLink, (md5(trim($_REQUEST['password']))));
 		}
 		
 		return $user_data;

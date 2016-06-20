@@ -6,7 +6,7 @@ class C_Search extends C_Base
 	{
 		$mSearch = M_Search::Instance();
 		$projects = $mSearch->GetNewProjects();
-		$this->PrepareProjectList(&$projects);
+		$this->PrepareProjectList($projects);
 		
 		$mProject = M_Project::Instance();
 		$spec = $mProject->GetSpecialities();
@@ -23,13 +23,13 @@ class C_Search extends C_Base
 			$mSearch = M_Search::Instance();
 			$projects = $mSearch->GetProjectsByType($_GET['type']);
 			
-			$this->PrepareProjectList(&$projects);
+			$this->PrepareProjectList($projects);
 			
 			$this->content = $this->Template('view/v_search_projects.php', array('projects' => $projects));
 		}
 	}
 	
-	private function PrepareProjectList($projects)
+	private function PrepareProjectList(&$projects)
 	{
 		$mUser = M_User::Instance();
 		

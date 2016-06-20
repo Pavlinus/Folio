@@ -10,6 +10,8 @@ abstract class C_Base extends C_Controller
 	
 	public function render()
 	{
+		$page = '';
+		
 		if($this->css != 'style.css')
 		{
 			$page .= $this->content;

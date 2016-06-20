@@ -13,7 +13,7 @@
 			<div></div>
 		</div>
 		
-		<div id="avatar" style="background: url(<?=$user['avatar_thumb']?>) no-repeat center center;">
+		<div id="avatar" style="background-image: url(<?=$user['avatar_thumb']?>);">
 		</div>
 		
 		<div id="userInfo">
@@ -87,17 +87,12 @@
 									<p><?=$project['description']?></p>
 								</div>
 								<div id="projectAreaInnerRight">
-									<img src="<?=$project['image']?>"/>
+									<div id="projectImage" style="background-image: url(<?=$project['image']?>);"></div>
 								</div>
 							</div>
-							<? 
-								session_start();
-								if(isset($_SESSION['sid']) && $_GET['id'] == $_COOKIE['user_id']) : 
-							?>
-								<div id="optionButton">
-									<a href="#">Изменить</a>
-								</div>
-							<? endif; ?>
+							<div id="optionButton">
+								<a href="#">Изменить</a>
+							</div>
 						<? endforeach; ?>
 					<? else : ?>
 						<p class="pageMessage">Здесь пока нет проектов</p>

@@ -54,6 +54,12 @@ class M_Settings
 		
 		return $this->msql->Update('settings', $style, $where);
 	}
+	
+	public function Add()
+	{
+		$settings = array('style_id' => 1);
+		$this->msql->Insert('settings', $settings);
+	}
 }
 
 ?>

@@ -162,6 +162,10 @@ select {
 	margin: 70px auto 40px auto;
 	border-radius: 50%;
 	border: 2px solid #fff;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: #fff;
 }
 
 #projectArea {
@@ -212,7 +216,7 @@ select {
 #projectImage {
 	width: 330px;
 	height: 180px;
-	background-size: contain;
+	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -253,9 +257,12 @@ footer {
 	float: left;
 }
 
-#footerInnerLeft #avatar {
+#name_image>#avatar {
 	margin: 0 20px 0 0;
 	padding: 0;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 #footerInnerLeft h1 {
